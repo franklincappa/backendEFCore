@@ -20,7 +20,7 @@ namespace EFCoreWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(GeneroCreacionDTO generoCreacion) 
+        public async Task<ActionResult> Post(GeneroCreacionDTO generoCreacion)
         {
             /*
             var genero = new Genero
@@ -33,5 +33,15 @@ namespace EFCoreWebApi.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost("varios")]
+        public async Task<ActionResult> post(GeneroCreacionDTO[] generosCreacionDTO)
+        {
+            var generos = _mapper.Map<Genero[]>(generosCreacionDTO);
+            _context.AddRange(generos);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }

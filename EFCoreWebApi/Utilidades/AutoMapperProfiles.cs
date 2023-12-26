@@ -9,6 +9,7 @@ namespace EFCoreWebApi.Utilidades
         public AutoMapperProfiles()
         {
             CreateMap<GeneroCreacionDTO, Genero>();
+            CreateMap<ActorCreacionDTO, Actor>();
         }
     }
 }
