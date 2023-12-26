@@ -28,6 +28,7 @@ namespace EFCoreWebApi
         public DbSet<Genero> Genero => Set<Genero>();
         public DbSet<Actor> Actor => Set<Actor>();
         public DbSet<Pelicula> Pelicula => Set<Pelicula>();
-        public DbSet<Comentario> Comentario => Set<Comentario>();     
+        public DbSet<Comentario> Comentario => Set<Comentario>();
+        public DbSet<PeliculaActor> PeliculasActores => Set<PeliculaActor>();
     }
 }
