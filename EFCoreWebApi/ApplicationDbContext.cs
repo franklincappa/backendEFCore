@@ -1,5 +1,6 @@
 ﻿using EFCoreWebApi.Entidades;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EFCoreWebApi
 {
@@ -13,20 +14,8 @@ namespace EFCoreWebApi
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<Genero>().HasKey(x => x.Id);
-            modelBuilder.Entity<Genero>().Property(x => x.Nombre).HasMaxLength(150);
-
-            //modelBuilder.Entity<Actor>().HasKey(x => x.Id);
-            modelBuilder.Entity<Actor>().Property(x => x.Nombre).HasMaxLength(150);
-            modelBuilder.Entity<Actor>().Property(x => x.Fortuna).HasPrecision(18,2);
-            modelBuilder.Entity<Actor>().Property(x => x.FechaNacimiento).HasColumnType("date");
-
-            //modelBuilder.Entity<Pelicula>().HasKey(x => x.Id);
-            modelBuilder.Entity<Pelicula>().Property(x => x.Titulo).HasMaxLength(150);
-            modelBuilder.Entity<Pelicula>().Property(x => x.FechaEstreno).HasColumnType("date");
-
-            modelBuilder.Entity<Comentario>().Property(x => x.Contenido).HasMaxLength(500);
-
+            //Cargar Configuraciones Api Fluent de las entidades
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
