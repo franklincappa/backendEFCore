@@ -3,6 +3,7 @@ using EFCoreWebApi.DTOs;
 using EFCoreWebApi.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreWebApi.Controllers
 {
@@ -42,6 +43,10 @@ namespace EFCoreWebApi.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
-
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Genero>>> Get()
+        {
+            return await _context.Genero.ToListAsync();
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace EFCoreWebApi.Utilidades
                 dto.MapFrom(campo => campo.Generos.Select(id => new Genero { Id = id })));
             CreateMap<PeliculaActorCreacionDTO, PeliculaActor>();
             CreateMap<ComentarioCreacionDTO, Comentario>();
+
+            CreateMap<Actor, ActorDTO>();
         }
     }
 }
