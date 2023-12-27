@@ -4,6 +4,7 @@ using EFCoreWebApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231227023319_DataGenero")]
+    partial class DataGenero
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +48,6 @@ namespace EFCoreWebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actor");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            FechaNacimiento = new DateTime(1948, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fortuna = 15000m,
-                            Nombre = "Samuel L Jackson"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FechaNacimiento = new DateTime(1965, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fortuna = 18000m,
-                            Nombre = "Robert Downey Jr"
-                        });
                 });
 
             modelBuilder.Entity("EFCoreWebApi.Entidades.Comentario", b =>
@@ -86,36 +73,6 @@ namespace EFCoreWebApi.Migrations
                     b.HasIndex("PeliculaId");
 
                     b.ToTable("Comentario");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Contenido = "Muy Buena!!",
-                            PeliculaId = 2,
-                            Recomendar = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Contenido = "Dura Dura",
-                            PeliculaId = 2,
-                            Recomendar = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Contenido = "no debieron hacer eso ...",
-                            PeliculaId = 3,
-                            Recomendar = false
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Contenido = "locaciones excelentes",
-                            PeliculaId = 4,
-                            Recomendar = true
-                        });
                 });
 
             modelBuilder.Entity("EFCoreWebApi.Entidades.Genero", b =>
@@ -170,29 +127,6 @@ namespace EFCoreWebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pelicula");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            EnCines = false,
-                            FechaEstreno = new DateTime(2019, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Titulo = "Avengers EndGame"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EnCines = false,
-                            FechaEstreno = new DateTime(2021, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Titulo = "Spider-Man No Way Home"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EnCines = false,
-                            FechaEstreno = new DateTime(2022, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Titulo = "Spider-Man: Across the spider-Verse (Part One)"
-                        });
                 });
 
             modelBuilder.Entity("EFCoreWebApi.Entidades.PeliculaActor", b =>
@@ -216,29 +150,6 @@ namespace EFCoreWebApi.Migrations
                     b.HasIndex("PeliculaId");
 
                     b.ToTable("PeliculasActores");
-
-                    b.HasData(
-                        new
-                        {
-                            ActorId = 2,
-                            PeliculaId = 3,
-                            Orden = 1,
-                            Personaje = "Nick Fury"
-                        },
-                        new
-                        {
-                            ActorId = 2,
-                            PeliculaId = 2,
-                            Orden = 2,
-                            Personaje = "Nick Fury"
-                        },
-                        new
-                        {
-                            ActorId = 3,
-                            PeliculaId = 4,
-                            Orden = 1,
-                            Personaje = "Iron Man"
-                        });
                 });
 
             modelBuilder.Entity("GeneroPelicula", b =>
@@ -254,23 +165,6 @@ namespace EFCoreWebApi.Migrations
                     b.HasIndex("PeliculasId");
 
                     b.ToTable("GeneroPelicula");
-
-                    b.HasData(
-                        new
-                        {
-                            GenerosId = 5,
-                            PeliculasId = 2
-                        },
-                        new
-                        {
-                            GenerosId = 5,
-                            PeliculasId = 3
-                        },
-                        new
-                        {
-                            GenerosId = 6,
-                            PeliculasId = 4
-                        });
                 });
 
             modelBuilder.Entity("EFCoreWebApi.Entidades.Comentario", b =>

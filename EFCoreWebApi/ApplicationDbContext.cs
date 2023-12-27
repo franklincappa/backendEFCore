@@ -1,4 +1,5 @@
 ﻿using EFCoreWebApi.Entidades;
+using EFCoreWebApi.Entidades.Seeding;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -8,7 +9,6 @@ namespace EFCoreWebApi
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,6 +16,8 @@ namespace EFCoreWebApi
             base.OnModelCreating(modelBuilder);
             //Cargar Configuraciones Api Fluent de las entidades
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //cargar data inicial
+            SeedingInicial.Seed(modelBuilder);
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
