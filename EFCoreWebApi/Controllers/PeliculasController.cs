@@ -86,5 +86,18 @@ namespace EFCoreWebApi.Controllers
             return Ok(pelicula);
         }
 
+        [HttpDelete("{id:int}/moderna")]
+        public async Task<ActionResult> DeletePelicula(int id)
+        {
+            var filasAlteradas = await _context.Pelicula.Where(p => p.Id == id).ExecuteDeleteAsync();
+            if (filasAlteradas == 0)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+
+
     }
 }

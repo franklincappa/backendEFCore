@@ -4,6 +4,7 @@ using EFCoreWebApi.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 namespace EFCoreWebApi.Controllers
 {
@@ -58,7 +59,7 @@ namespace EFCoreWebApi.Controllers
             {
                 return NotFound();
             }
-            genero.Nombre = genero.Nombre+"2";
+            genero.Nombre = genero.Nombre + "2";
 
             await _context.SaveChangesAsync();
             return Ok();
@@ -72,7 +73,32 @@ namespace EFCoreWebApi.Controllers
             genero.Id = id;
             _context.Update(genero);
             await _context.SaveChangesAsync();
-            return Ok();            
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}/moderna")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var filasAlteradas = await _context.Genero.Where(g=> g.Id==id).ExecuteDeleteAsync();
+            if (filasAlteradas == 0) 
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}/anterior")]
+        public async Task<ActionResult> DeleteAnterior(int id)
+        {
+            var genero = await _context.Genero.FirstOrDefaultAsync(g => g.Id == id);
+                
+            if (genero is null)
+            {
+                return NotFound();
+            }
+            _context.Remove(genero);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
     }
