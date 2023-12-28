@@ -48,5 +48,32 @@ namespace EFCoreWebApi.Controllers
         {
             return await _context.Genero.ToListAsync();
         }
+
+        [HttpPut("{id:int}/nombre2")]
+        public async Task<ActionResult> Put(int id)
+        {
+            //módelo conectado
+            var genero = await _context.Genero.FirstOrDefaultAsync(g => g.Id == id);
+            if (genero is null)
+            {
+                return NotFound();
+            }
+            genero.Nombre = genero.Nombre+"2";
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, GeneroCreacionDTO generoCreacionDTO)
+        {
+            //módelo desconectado
+            var genero = _mapper.Map<Genero>(generoCreacionDTO);
+            genero.Id = id;
+            _context.Update(genero);
+            await _context.SaveChangesAsync();
+            return Ok();            
+        }
+
     }
 }
