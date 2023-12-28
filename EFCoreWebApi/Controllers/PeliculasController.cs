@@ -43,5 +43,48 @@ namespace EFCoreWebApi.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Pelicula>> Get(int id)
+        { 
+            //eager loading
+            var pelicula = await _context.Pelicula
+                .Include(p=>p.Comentarios)
+                .Include(p => p.Generos)
+                .Include(p => p.PeliculasActores.OrderBy(pa => pa.Orden))
+                    .ThenInclude(p => p.Actor)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            if (pelicula == null)
+            {
+                return NotFound();
+            }
+            return pelicula;
+        }
+
+        [HttpGet("select /{id:int}")]
+        public async Task<ActionResult> GetSelect(int id)
+        {
+            //select loading
+            var pelicula = await _context.Pelicula
+                .Select(pel=> new { 
+                    pel.Id,
+                    pel.Titulo,
+                    Genero= pel.Generos.Select(g=> g.Nombre).ToList(),
+                    Actores= pel.PeliculasActores.OrderBy(pa=> pa.Orden).Select(
+                        pa=> new {
+                            Id= pa.ActorId,
+                            pa.Actor.Nombre,
+                            pa.Personaje
+                        }),
+                    cantidadComentarios = pel.Comentarios.Count()     
+                })                
+                .FirstOrDefaultAsync(p => p.Id == id);
+            if (pelicula == null)
+            {
+                return NotFound();
+            }
+            return Ok(pelicula);
+        }
+
     }
 }
