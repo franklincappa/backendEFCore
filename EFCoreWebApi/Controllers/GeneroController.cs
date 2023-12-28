@@ -30,6 +30,12 @@ namespace EFCoreWebApi.Controllers
                 Nombre = generoCreacion.Nombre
             };
             */
+
+            var yaExisteGeneroNombre = await _context.Genero.AnyAsync(g => g.Nombre == generoCreacion.Nombre);
+            if(yaExisteGeneroNombre)
+            {
+                return BadRequest("Ya existe un género con el nombre: " + generoCreacion.Nombre);
+            }
             var genero = _mapper.Map<Genero>(generoCreacion);
             _context.Add(genero);
             await _context.SaveChangesAsync();
